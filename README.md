@@ -3,10 +3,10 @@ html2canvas
 
 ### want support
 
--[ ] filter
--[ ] mix-blend-mode
--[x] object-fit
--[ ] writing-mode
+- [ ] filter
+- [ ] mix-blend-mode
+- [x] object-fit
+- [ ] writing-mode
 
 ```typescript
 # import
