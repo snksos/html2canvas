@@ -271,23 +271,107 @@ export class CanvasRenderer extends Renderer {
         image: HTMLImageElement | HTMLCanvasElement
     ): void {
         if (image && container.intrinsicWidth > 0 && container.intrinsicHeight > 0) {
-            const box = contentBox(container);
-            const path = calculatePaddingBoxPath(curves);
-            this.path(path);
-            this.ctx.save();
-            this.ctx.clip();
-            this.ctx.drawImage(
-                image,
-                0,
-                0,
-                container.intrinsicWidth,
-                container.intrinsicHeight,
-                box.left,
-                box.top,
-                box.width,
-                box.height
-            );
-            this.ctx.restore();
+            if (container.styles.objectFit === 'cover') {
+                const box = contentBox(container);
+                /*CUSTOM CODE*/
+                let newWidth = 30;
+                let newHeight = 30;
+                let newX = box.left;
+                let newY = box.top;
+                if (container.intrinsicWidth / box.width < container.intrinsicHeight / box.height) {
+                    newWidth = box.width;
+                    newHeight = container.intrinsicHeight * (box.width / container.intrinsicWidth);
+                    newY = box.top + (box.height - newHeight) / 2;
+                } else {
+                    newWidth = container.intrinsicWidth * (box.height / container.intrinsicHeight);
+                    newHeight = box.height;
+                    newX = box.left + (box.width - newWidth) / 2;
+                }
+                const path = calculatePaddingBoxPath(curves);
+                this.path(path);
+                this.ctx.save();
+                this.ctx.clip();
+                this.ctx.drawImage(
+                    image,
+                    0,
+                    0,
+                    container.intrinsicWidth,
+                    container.intrinsicHeight,
+                    newX,
+                    newY,
+                    newWidth,
+                    newHeight
+                );
+                this.ctx.restore();
+            } else if (container.styles.objectFit == 'contain') {
+                const box = contentBox(container);
+                /*CUSTOM CODE*/
+                let newWidth = 0;
+                let newHeight = 0;
+                let newX = box.left;
+                let newY = box.top;
+                if (container.intrinsicWidth / box.width < container.intrinsicHeight / box.height) {
+                    newWidth = container.intrinsicWidth * (box.height / container.intrinsicHeight);
+                    newHeight = box.height;
+                    newX = box.left + (box.width - newWidth) / 2;
+                } else {
+                    newWidth = box.width;
+                    newHeight = container.intrinsicHeight * (box.width / container.intrinsicWidth);
+                    newY = box.top + (box.height - newHeight) / 2;
+                }
+                const path = calculatePaddingBoxPath(curves);
+                this.path(path);
+                this.ctx.save();
+                this.ctx.clip();
+                this.ctx.drawImage(
+                    image,
+                    0,
+                    0,
+                    container.intrinsicWidth,
+                    container.intrinsicHeight,
+                    newX,
+                    newY,
+                    newWidth,
+                    newHeight
+                );
+                this.ctx.restore();
+            } else if (container.styles.objectFit == 'fill') {
+                const box = contentBox(container);
+                const path = calculatePaddingBoxPath(curves);
+                this.path(path);
+                this.ctx.save();
+                this.ctx.clip();
+                this.ctx.drawImage(
+                    image,
+                    0,
+                    0,
+                    container.intrinsicWidth,
+                    container.intrinsicHeight,
+                    box.left,
+                    box.top,
+                    box.width,
+                    box.height
+                );
+                this.ctx.restore();
+            } else {
+                const box = contentBox(container);
+                const path = calculatePaddingBoxPath(curves);
+                this.path(path);
+                this.ctx.save();
+                this.ctx.clip();
+                this.ctx.drawImage(
+                    image,
+                    0,
+                    0,
+                    container.intrinsicWidth,
+                    container.intrinsicHeight,
+                    box.left,
+                    box.top,
+                    box.width,
+                    box.height
+                );
+                this.ctx.restore();
+            }
         }
     }
 

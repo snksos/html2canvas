@@ -1,14 +1,14 @@
 {
-  "title": "html2canvas",
-  "name": "html2canvas",
-  "description": "Screenshots with JavaScript",
+  "title": "html2canvas-support-css",
+  "name": "html2canvas-support-css",
+  "description": "Screenshots with JavaScript & add support css.",
   "main": "dist/html2canvas.js",
   "module": "dist/html2canvas.esm.js",
   "typings": "dist/types/index.d.ts",
   "browser": "dist/html2canvas.js",
-  "version": "1.4.1",
+  "version": "1.0.0",
   "author": {
-    "name": "Niklas von Hertzen",
+    "name": "Niklas von Hertzen & snkso",
     "email": "niklasvh@gmail.com",
     "url": "https://hertzen.com"
   },
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:niklasvh/html2canvas.git"
+    "url": "git@github.com:snksos/html2canvas.git"
   },
   "bugs": {
     "url": "https://github.com/niklasvh/html2canvas/issues"
