@@ -2,6 +2,7 @@ html2canvas
 ===========
 
 ### want support
+
 -[ ] filter
 -[ ] mix-blend-mode
 -[x] object-fit
