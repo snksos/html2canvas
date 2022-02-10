@@ -81,6 +81,7 @@ import {webkitTextStrokeColor} from './property-descriptors/webkit-text-stroke-c
 import {webkitTextStrokeWidth} from './property-descriptors/webkit-text-stroke-width';
 import {Context} from '../core/context';
 import {objectFit} from './property-descriptors/object-fit';
+import {filter} from './property-descriptors/filter';
 
 export class CSSParsedDeclaration {
     animationDuration: ReturnType<typeof duration.parse>;
@@ -111,6 +112,8 @@ export class CSSParsedDeclaration {
     color: Color;
     direction: ReturnType<typeof direction.parse>;
     display: ReturnType<typeof display.parse>;
+    filter: ReturnType<typeof filter.parse>;
+    filterOriginal: string | null;
     float: ReturnType<typeof float.parse>;
     fontFamily: ReturnType<typeof fontFamily.parse>;
     fontSize: LengthPercentage;
@@ -180,6 +183,8 @@ export class CSSParsedDeclaration {
         this.color = parse(context, color, declaration.color);
         this.direction = parse(context, direction, declaration.direction);
         this.display = parse(context, display, declaration.display);
+        this.filter = parse(context, filter, declaration.filter);
+        this.filterOriginal = declaration.filter;
         this.float = parse(context, float, declaration.cssFloat);
         this.fontFamily = parse(context, fontFamily, declaration.fontFamily);
         this.fontSize = parse(context, fontSize, declaration.fontSize);

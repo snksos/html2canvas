@@ -44,6 +44,7 @@ import {PAINT_ORDER_LAYER} from '../../css/property-descriptors/paint-order';
 import {Renderer} from '../renderer';
 import {Context} from '../../core/context';
 import {DIRECTION} from '../../css/property-descriptors/direction';
+import {isSupportedFilter, processImage} from '../image-filter';
 
 export type RenderConfigurations = RenderOptions & {
     backgroundColor: Color | null;
@@ -273,7 +274,6 @@ export class CanvasRenderer extends Renderer {
         if (image && container.intrinsicWidth > 0 && container.intrinsicHeight > 0) {
             if (container.styles.objectFit === 'cover') {
                 const box = contentBox(container);
-                /*CUSTOM CODE*/
                 let newWidth = 30;
                 let newHeight = 30;
                 let newX = box.left;
@@ -291,6 +291,9 @@ export class CanvasRenderer extends Renderer {
                 this.path(path);
                 this.ctx.save();
                 this.ctx.clip();
+                if (isSupportedFilter(this.ctx) && container.styles.filterOriginal) {
+                    this.ctx.filter = container.styles.filterOriginal;
+                }
                 this.ctx.drawImage(
                     image,
                     0,
@@ -302,10 +305,8 @@ export class CanvasRenderer extends Renderer {
                     newWidth,
                     newHeight
                 );
-                this.ctx.restore();
             } else if (container.styles.objectFit == 'contain') {
                 const box = contentBox(container);
-                /*CUSTOM CODE*/
                 let newWidth = 0;
                 let newHeight = 0;
                 let newX = box.left;
@@ -323,6 +324,9 @@ export class CanvasRenderer extends Renderer {
                 this.path(path);
                 this.ctx.save();
                 this.ctx.clip();
+                if (isSupportedFilter(this.ctx) && container.styles.filterOriginal) {
+                    this.ctx.filter = container.styles.filterOriginal;
+                }
                 this.ctx.drawImage(
                     image,
                     0,
@@ -334,13 +338,15 @@ export class CanvasRenderer extends Renderer {
                     newWidth,
                     newHeight
                 );
-                this.ctx.restore();
             } else if (container.styles.objectFit == 'fill') {
                 const box = contentBox(container);
                 const path = calculatePaddingBoxPath(curves);
                 this.path(path);
                 this.ctx.save();
                 this.ctx.clip();
+                if (isSupportedFilter(this.ctx) && container.styles.filterOriginal) {
+                    this.ctx.filter = container.styles.filterOriginal;
+                }
                 this.ctx.drawImage(
                     image,
                     0,
@@ -352,13 +358,15 @@ export class CanvasRenderer extends Renderer {
                     box.width,
                     box.height
                 );
-                this.ctx.restore();
             } else {
                 const box = contentBox(container);
                 const path = calculatePaddingBoxPath(curves);
                 this.path(path);
                 this.ctx.save();
                 this.ctx.clip();
+                if (isSupportedFilter(this.ctx) && container.styles.filterOriginal) {
+                    this.ctx.filter = container.styles.filterOriginal;
+                }
                 this.ctx.drawImage(
                     image,
                     0,
@@ -370,8 +378,8 @@ export class CanvasRenderer extends Renderer {
                     box.width,
                     box.height
                 );
-                this.ctx.restore();
             }
+            this.ctx.restore();
         }
     }
 
@@ -387,6 +395,7 @@ export class CanvasRenderer extends Renderer {
         if (container instanceof ImageElementContainer) {
             try {
                 const image = await this.context.cache.match(container.src);
+                if (styles.filter && !isSupportedFilter(this.ctx)) await processImage(image, styles.filter);
                 this.renderReplacedElement(container, curves, image);
             } catch (e) {
                 this.context.logger.error(`Error loading image ${container.src}`);
