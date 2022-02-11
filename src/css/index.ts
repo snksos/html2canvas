@@ -82,6 +82,7 @@ import {webkitTextStrokeWidth} from './property-descriptors/webkit-text-stroke-w
 import {Context} from '../core/context';
 import {objectFit} from './property-descriptors/object-fit';
 import {filter} from './property-descriptors/filter';
+import {mixBlendMode} from './property-descriptors/mix-blend-mode';
 
 export class CSSParsedDeclaration {
     animationDuration: ReturnType<typeof duration.parse>;
@@ -153,6 +154,7 @@ export class CSSParsedDeclaration {
     wordBreak: ReturnType<typeof wordBreak.parse>;
     zIndex: ReturnType<typeof zIndex.parse>;
     objectFit: ReturnType<typeof objectFit.parse>;
+    mixBlendMode: ReturnType<typeof mixBlendMode.parse>;
 
     constructor(context: Context, declaration: CSSStyleDeclaration) {
         this.animationDuration = parse(context, duration, declaration.animationDuration);
@@ -233,6 +235,7 @@ export class CSSParsedDeclaration {
         this.wordBreak = parse(context, wordBreak, declaration.wordBreak);
         this.zIndex = parse(context, zIndex, declaration.zIndex);
         this.objectFit = parse(context, objectFit, declaration.objectFit);
+        this.mixBlendMode = parse(context, mixBlendMode, declaration.mixBlendMode);
     }
 
     isVisible(): boolean {

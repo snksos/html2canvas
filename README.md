@@ -3,10 +3,10 @@ html2canvas
 
 ### want support
 
-- [ ] filter
-- [ ] mix-blend-mode
+- [x] filter  (ps: no test)
+- [ ] mix-blend-mode (ps: 效果不好，暂未处理)
 - [x] object-fit
-- [ ] writing-mode
+- [ ] writing-mode (ps: 没有找到好的方法，仅仅将文字单个加上div/b等标签，但是特殊字符还是有问题)
 
 ```typescript
 # import

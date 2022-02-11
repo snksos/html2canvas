@@ -119,6 +119,8 @@ export class CanvasRenderer extends Renderer {
             this.ctx.clip();
         }
 
+        // only this work...
+        this.ctx.globalCompositeOperation = 'multiply';
         this._activeEffects.push(effect);
     }
 
@@ -187,6 +189,7 @@ export class CanvasRenderer extends Renderer {
 
         text.textBounds.forEach((text) => {
             paintOrder.forEach((paintOrderLayer) => {
+                this.ctx.globalCompositeOperation = styles.mixBlendMode;
                 switch (paintOrderLayer) {
                     case PAINT_ORDER_LAYER.FILL:
                         this.ctx.fillStyle = asString(styles.color);
@@ -294,6 +297,7 @@ export class CanvasRenderer extends Renderer {
                 if (isSupportedFilter(this.ctx) && container.styles.filterOriginal) {
                     this.ctx.filter = container.styles.filterOriginal;
                 }
+                this.ctx.globalCompositeOperation = container.styles.mixBlendMode;
                 this.ctx.drawImage(
                     image,
                     0,
@@ -327,6 +331,7 @@ export class CanvasRenderer extends Renderer {
                 if (isSupportedFilter(this.ctx) && container.styles.filterOriginal) {
                     this.ctx.filter = container.styles.filterOriginal;
                 }
+                this.ctx.globalCompositeOperation = container.styles.mixBlendMode;
                 this.ctx.drawImage(
                     image,
                     0,
@@ -347,6 +352,7 @@ export class CanvasRenderer extends Renderer {
                 if (isSupportedFilter(this.ctx) && container.styles.filterOriginal) {
                     this.ctx.filter = container.styles.filterOriginal;
                 }
+                this.ctx.globalCompositeOperation = container.styles.mixBlendMode;
                 this.ctx.drawImage(
                     image,
                     0,
@@ -367,6 +373,7 @@ export class CanvasRenderer extends Renderer {
                 if (isSupportedFilter(this.ctx) && container.styles.filterOriginal) {
                     this.ctx.filter = container.styles.filterOriginal;
                 }
+                this.ctx.globalCompositeOperation = container.styles.mixBlendMode;
                 this.ctx.drawImage(
                     image,
                     0,
