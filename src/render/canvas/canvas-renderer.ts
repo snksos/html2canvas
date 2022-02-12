@@ -119,7 +119,6 @@ export class CanvasRenderer extends Renderer {
             this.ctx.clip();
         }
 
-        // only this work...
         this.ctx.globalCompositeOperation = 'multiply';
         this._activeEffects.push(effect);
     }
