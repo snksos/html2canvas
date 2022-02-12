@@ -296,7 +296,7 @@ export class CanvasRenderer extends Renderer {
                 if (isSupportedFilter(this.ctx) && container.styles.filterOriginal) {
                     this.ctx.filter = container.styles.filterOriginal;
                 }
-                this.ctx.globalCompositeOperation = container.styles.mixBlendMode;
+                if (container.styles.mixBlendMode) this.ctx.globalCompositeOperation = container.styles.mixBlendMode;
                 this.ctx.drawImage(
                     image,
                     0,
@@ -330,7 +330,7 @@ export class CanvasRenderer extends Renderer {
                 if (isSupportedFilter(this.ctx) && container.styles.filterOriginal) {
                     this.ctx.filter = container.styles.filterOriginal;
                 }
-                this.ctx.globalCompositeOperation = container.styles.mixBlendMode;
+                if (container.styles.mixBlendMode) this.ctx.globalCompositeOperation = container.styles.mixBlendMode;
                 this.ctx.drawImage(
                     image,
                     0,
@@ -351,7 +351,7 @@ export class CanvasRenderer extends Renderer {
                 if (isSupportedFilter(this.ctx) && container.styles.filterOriginal) {
                     this.ctx.filter = container.styles.filterOriginal;
                 }
-                this.ctx.globalCompositeOperation = container.styles.mixBlendMode;
+                if (container.styles.mixBlendMode) this.ctx.globalCompositeOperation = container.styles.mixBlendMode;
                 this.ctx.drawImage(
                     image,
                     0,
@@ -372,7 +372,7 @@ export class CanvasRenderer extends Renderer {
                 if (isSupportedFilter(this.ctx) && container.styles.filterOriginal) {
                     this.ctx.filter = container.styles.filterOriginal;
                 }
-                this.ctx.globalCompositeOperation = container.styles.mixBlendMode;
+                if (container.styles.mixBlendMode) this.ctx.globalCompositeOperation = container.styles.mixBlendMode;
                 this.ctx.drawImage(
                     image,
                     0,
